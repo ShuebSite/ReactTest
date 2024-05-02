@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Routing from './Routing.jsx'
 
 function Square({value, onSquareClick}) {
   return (
@@ -86,12 +87,17 @@ export default function Game() {
   });
 
   return (
-    <div className="game">
-      <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+    <div className='game'>
+      <div className='a'>
+        < Routing />
       </div>
-      <div className="game-info">
-        <ol>{moves}</ol>
+      <div className="game">
+        <div className="game-board">
+          <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+        </div>
+        <div className="game-info">
+          <ol>{moves}</ol>
+        </div>
       </div>
     </div>
   );
