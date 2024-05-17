@@ -2,10 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link, BrowserRouter, Routes } from 'react-router-dom';
 import { Home } from "./components/Home";
 import { List } from "./components/wishlist/list";
-
-function User() {
-  return <h2>ユーザー</h2>;
-}
+import { Form } from "./components/wishlist/form";
 
 function AppRouter() {
   return (
@@ -17,18 +14,18 @@ function AppRouter() {
               <Link to="/">ホーム</Link>
             </li>
             <li>
-              <Link to="/user/">ユーザー</Link>
+              <Link to="/list/">リスト</Link>
             </li>
             <li>
-              <Link to="/list/">リスト</Link>
+              <Link to="/form/">投稿</Link>
             </li>
           </ul>
         </nav>
         <Link to="/user/">User</Link>
         <Routes>
           <Route path="/" exact element={Home()} />
-          <Route path="/user/" element={User()} />
           <Route path="/list/" element={List()} />
+          <Route path="/form/" element={Form()} />
         </Routes>
       </div>
     </BrowserRouter>
