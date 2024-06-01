@@ -1,13 +1,14 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, BrowserRouter, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, BrowserRouter, Routes, useNavigate, useParams } from 'react-router-dom';
+import { Button, Modal, Paper, TextField, Typography } from '@mui/material';
 import { Home } from "./components/Home";
 import { List } from "./components/wishlist/list";
 import { Form } from "./components/wishlist/form";
 import { Game } from "./components/wishlist/game";
+import { Detail } from "./components/wishlist/detail";
 
 function AppRouter() {
   return (
-    <BrowserRouter>
       <div>
         <nav>
           <ul>
@@ -31,9 +32,9 @@ function AppRouter() {
           <Route path="/list/" element={List()} />
           <Route path="/form/" element={Form()} />
           <Route path="/game/" element={Game()} />
+          <Route path="/detail/:id" element={Detail()} />
         </Routes>
       </div>
-    </BrowserRouter>
   );
 }
 
