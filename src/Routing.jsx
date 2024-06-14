@@ -6,6 +6,7 @@ import { List } from "./components/wishlist/list";
 import { Form } from "./components/wishlist/form";
 import { Game } from "./components/wishlist/game";
 import { Detail } from "./components/wishlist/detail";
+import { Edit } from "./components/wishlist/edit";
 
 function AppRouter() {
   return (
@@ -33,6 +34,7 @@ function AppRouter() {
           <Route path="/form/" element={Form()} />
           <Route path="/game/" element={Game()} />
           <Route path="/detail/:id" element={Detail()} />
+          <Route path="/edit/:id" element={Edit()} />
         </Routes>
       </div>
   );

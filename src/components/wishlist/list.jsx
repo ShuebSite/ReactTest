@@ -21,8 +21,8 @@ export function List() {
   const onClickDetail = (id) => {
     navigate(`/detail/${id}`)
   }
-  const onClickEdit = () => {
-    navigate('/edit/')
+  const onClickEdit = (id) => {
+    navigate(`/edit/${id}`)
   }
   const onClickDelete = () => {
     navigate('/delete/')
@@ -53,7 +53,7 @@ export function List() {
             <p>作成日時: {item.created_at}</p>
             <div>
               <Button variant="contained" onClick={() => onClickDetail(item.id)}>詳細</Button>
-              
+              <Button variant="contained" onClick={() => onClickEdit(item.id)}>編集</Button>
               {/* <Button variant="contained" onClick={onClickEdit}>編集</Button>
               <Button variant="contained" onClick={onClickDelete}>削除</Button> */}
             </div>
