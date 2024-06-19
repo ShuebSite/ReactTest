@@ -16,25 +16,31 @@ const options = {
 
 export function List() {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
   const onClickDetail = (id) => {
     navigate(`/detail/${id}`)
   }
   const onClickEdit = (id) => {
     navigate(`/edit/${id}`)
   }
-  const onClickDelete = () => {
-    navigate('/delete/')
+  const onClickDelete = async (id) => {
+    try {
+      const response = await axios.delete(`http://127.0.0.1:8000/api/wishlist/${id}`, options);
+      window.location.reload();
+    } catch (error) {
+      console.log("error "+error.message);
+    }
   }
+
+
+  const fetchData = async () => {
+    const response = await axios.get('http://127.0.0.1:8000/api/wishlist', options);
+    setData(response.data.wishlists);
+  };
 
   useEffect(() => {
     try {
-      const fetchData = async () => {
-        const response = await axios.get('http://127.0.0.1:8000/api/wishlist', options)
-        setData(response.data.wishlists);
-      };
-  
       fetchData();
     } catch (error) {
       console.log("error "+error.message);
