@@ -15,7 +15,7 @@ function AppRouter() {
         <Header />
         
         <Routes>
-          <Route path="/" exact element={Home()} />
+          <Route path="/" exact element={List()} />
           <Route path="/list/" element={List()} />
           <Route path="/form/" element={Form()} />
           <Route path="/game/" element={Game()} />

@@ -27,7 +27,7 @@ export function List() {
   }
   const onClickDelete = async (id) => {
     try {
-      const response = await axios.delete(`http://127.0.0.1:8000/api/wishlist/${id}`, options);
+      const response = await axios.delete(`http://ec2-13-211-239-192.ap-southeast-2.compute.amazonaws.com/api/wishlist/${id}`, options);
       setOpen(true);
       window.location.reload();
     } catch (error) {
@@ -44,7 +44,7 @@ export function List() {
   };
 
   const fetchData = async () => {
-    const response = await axios.get('http://127.0.0.1:8000/api/wishlist', options);
+    const response = await axios.get('http://ec2-13-211-239-192.ap-southeast-2.compute.amazonaws.com/api/wishlist', options);
     setData(response.data.wishlists);
   };
 
