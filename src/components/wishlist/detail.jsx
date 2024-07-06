@@ -34,7 +34,8 @@ export const Detail = () => {
         <h1>Detail {param}</h1>
         <h2>{data.title}</h2>
         <p>{data.content}</p>
-        <p>作成日時: {data.created_at}</p>
+        <p>作成: {new Date(data.created_at).toLocaleDateString()}</p>
+        <p>更新: {new Date(data.updated_at).toLocaleDateString()}</p>
       </div>
     );
   };

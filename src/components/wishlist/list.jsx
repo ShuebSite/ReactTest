@@ -17,6 +17,7 @@ const options = {
 export function List() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   const onClickDetail = (id) => {
     navigate(`/detail/${id}`)
@@ -27,12 +28,20 @@ export function List() {
   const onClickDelete = async (id) => {
     try {
       const response = await axios.delete(`http://127.0.0.1:8000/api/wishlist/${id}`, options);
+      setOpen(true);
       window.location.reload();
     } catch (error) {
       console.log("error "+error.message);
     }
   }
 
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
   const fetchData = async () => {
     const response = await axios.get('http://127.0.0.1:8000/api/wishlist', options);
@@ -49,19 +58,29 @@ export function List() {
 
   return (
     <div>
+      <Snackbar
+        anchorOrigin={{ "vertical":"top", "horizontal":"center" }}
+        open={open}
+        autoHideDuration={5000}
+        message="I love snacks"
+        onClose={() =>{setOpen(false)}}
+      />
       <h1>リスト</h1>
       <ul>
         {data.map((item) => (
           <div key={item.id}>
             <li>
             <h2>{item.title}</h2>
-            {/* <p>{item.content}</p> */}
-            <p>作成日時: {item.created_at}</p>
             <div>
+            <ButtonGroup variant="contained" aria-label="Basic button group">
               <Button variant="contained" onClick={() => onClickDetail(item.id)}>詳細</Button>
               <Button variant="contained" onClick={() => onClickEdit(item.id)}>編集</Button>
-              {/* <Button variant="contained" onClick={onClickEdit}>編集</Button>
-              <Button variant="contained" onClick={onClickDelete}>削除</Button> */}
+              <Button variant="contained" onClick={() => onClickDelete(item.id)}>削除</Button>
+            </ButtonGroup>
+            
+            <p><font size="2">作成: {new Date(item.created_at).toLocaleDateString()}<br/>
+            更新: {new Date(item.updated_at).toLocaleDateString()}</font></p>
+            {/* <p>更新: {new Date(item.updated_at).toLocaleDateString()}</p> */}
             </div>
             </li>
           </div>
