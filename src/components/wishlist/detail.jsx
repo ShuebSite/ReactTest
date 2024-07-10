@@ -19,7 +19,7 @@ export const Detail = () => {
         try {
             if (param != null) {
                 const fetchData = async () => {
-                    const response = await axios.get(`http://ec2-13-211-239-192.ap-southeast-2.compute.amazonaws.com/api/wishlist/${param}`, options)
+                    const response = await axios.get(`https://wish1ist.xyz/api/wishlist/${param}`, options)
                     setData(response.data.wishlist);
                 };
                 fetchData();

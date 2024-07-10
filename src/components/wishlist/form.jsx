@@ -20,7 +20,7 @@ export function Form() {
 }
 
 const onClick = async()=>{
-  await axios.post('http://ec2-13-211-239-192.ap-southeast-2.compute.amazonaws.com/api/wishlist',data)
+  await axios.post('https://wish1ist.xyz/api/wishlist',data)
   .then((res) => {
       setData('');
       // location.href = 'http://127.0.0.1:8000';
