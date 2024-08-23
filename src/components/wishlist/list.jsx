@@ -8,11 +8,20 @@ import AppRouter from "../../Routing";
 
 axios.defaults.withCredentials = false; // global に設定してしまう場合
 
+const ENDPOINT = import.meta.env.VITE_WISHLIST_GRAPHQL_ENDPOINT;
+const API_KEY = import.meta.env.VITE_WISHLIST_GRAPHQL_API_KEY;
+const REQUEST_TIMEOUT_MS = 5000;
+
 const options = {
   headers: {
     "Access-Control-Allow-Origin": "*",
   },
 };
+
+const headers = {
+  "content-type": "application/json",
+  "x-api-key": API_KEY
+}
 
 export function List() {
   const [data, setData] = useState([]);
@@ -44,8 +53,37 @@ export function List() {
   };
 
   const fetchData = async () => {
-    const response = await axios.get('https://wish1ist.xyz/api/wishlist', options);
-    setData(response.data.wishlists);
+    const graphqlQuery = {
+      "operationName": "getWishes",
+      "query": `query getWishes {
+       listWishes {
+        items {
+          id 
+          content 
+          title
+          }
+        }
+       }`,
+      "variables": {}
+    };
+   
+    await axios({
+      url: ENDPOINT,
+      method: 'post',
+      headers: headers,
+      timeout: REQUEST_TIMEOUT_MS,
+      data: graphqlQuery
+    })
+    .then((res) => {
+        console.log(res);
+        setData(res.data.data.listWishes.items);
+    }).catch(error => {
+        console.log(error);
+    });
+
+    // REST API のとき
+    // const response = await axios.get('https://wish1ist.xyz/api/wishlist', options);
+    // setData(response.data.wishlists);
   };
 
   useEffect(() => {
