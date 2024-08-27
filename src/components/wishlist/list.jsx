@@ -53,6 +53,10 @@ export function List() {
   };
 
   const fetchData = async () => {
+    // test
+    console.log("endpoint, key "+ENDPOINT+", "+API_KEY)
+
+    // GraphQL API
     const graphqlQuery = {
       "operationName": "getWishes",
       "query": `query getWishes {
