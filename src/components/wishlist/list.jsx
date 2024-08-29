@@ -28,9 +28,27 @@ export function List() {
   }
   const onClickDelete = async (id) => {
     try {
-      const response = await axios.delete(`https://wish1ist.xyz/api/wishlist/${id}`, options);
-      setOpen(true);
-      window.location.reload();
+      // REST API
+      // const response = await axios.delete(`https://wish1ist.xyz/api/wishlist/${id}`, options);
+      // setOpen(true);
+      // window.location.reload();
+
+      // GraphQL
+      const response = await axios({
+        url: GraphQL.ENDPOINT,
+        method: 'post',
+        headers: GraphQL.headers,
+        timeout: GraphQL.REQUEST_TIMEOUT_MS,
+        data: GraphQL.queryDeleteWish(id)
+      })
+      .then((res) => {
+        console.log(res);
+        setOpen(true);
+        window.location.reload();
+      })
+      .catch(error => {
+        console.log(error);
+      });
     } catch (error) {
       console.log("error "+error.message);
     }
@@ -45,7 +63,7 @@ export function List() {
   };
 
   const fetchData = async () => {
-   
+    // GraphQL
     await axios({
       url: GraphQL.ENDPOINT,
       method: 'post',

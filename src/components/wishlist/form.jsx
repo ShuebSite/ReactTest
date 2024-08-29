@@ -2,6 +2,7 @@ import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Link, BrowserRouter, Routes, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Button, Modal, Paper, TextField, Typography, Box } from '@mui/material';
+import { GraphQL } from "./graphQL";
 
 axios.defaults.withCredentials = false; // global に設定してしまう場合
 
@@ -20,13 +21,30 @@ export function Form() {
 }
 
 const onClick = async()=>{
-  await axios.post('https://wish1ist.xyz/api/wishlist',data)
+  // REST API
+  // await axios.post('https://wish1ist.xyz/api/wishlist',data)
+  // .then((res) => {
+  //     setData('');
+  //     // location.href = 'http://127.0.0.1:8000';
+  //     console.log(res);
+  //     // 成功メッセージを表示
+  //     navigate(`/list/`);
+  // }).catch(error => {
+  //     console.log(error);
+  // });
+
+  // GraphQL
+  await axios({
+    url: GraphQL.ENDPOINT,
+    method: 'post',
+    headers: GraphQL.headers,
+    timeout: GraphQL.REQUEST_TIMEOUT_MS,
+    data: GraphQL.queryCreateWish(data)
+  })
   .then((res) => {
-      setData('');
-      // location.href = 'http://127.0.0.1:8000';
       console.log(res);
-      // 成功メッセージを表示
       navigate(`/list/`);
+      window.location.reload();
   }).catch(error => {
       console.log(error);
   });

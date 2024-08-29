@@ -42,7 +42,7 @@ export class GraphQL {
   }
 
   // createWish 新規作成
-  static queryCreateWish(title, content) {
+  static queryCreateWish(data) {
     return {
       "operationName": "createWish",
       "query": `mutation createWish($createwishinput: CreateWishInput!) {
@@ -53,8 +53,8 @@ export class GraphQL {
     }`,
       "variables": { 
         "createwishinput": {
-          "title": title,
-          "content": content
+          "title": data.title,
+          "content": data.content
         }
       }
     };
@@ -78,7 +78,7 @@ export class GraphQL {
   }
 
   // updateWish IDを指定して更新
-  static queryUpdateWish(id, title, content) {
+  static queryUpdateWish(id, data) {
     return {
       "operationName": "updateWish",
       "query": `mutation updateWish($updatewishinput: UpdateWishInput!) {
@@ -91,8 +91,8 @@ export class GraphQL {
       "variables": { 
         "updatewishinput": {
           "id": id,
-          "title": title, 
-          "content": content
+          "title": data.title, 
+          "content": data.content
         }
       }
     };

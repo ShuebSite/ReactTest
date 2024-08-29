@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Link, BrowserRouter, Routes, useNavigate, useParams, useLocation } from 'react-router-dom';
 import { Button, Modal, Paper, TextField, Typography, Box, Snackbar } from '@mui/material';
 import axios from "axios";
+import { GraphQL } from "./graphQL";
 
 axios.defaults.withCredentials = false; // global に設定してしまう場合
 
@@ -23,13 +24,31 @@ export const Edit = () => {
       try {
         if (param != null) {
             const putData = async () => {
-                const response = await axios.put(`https://wish1ist.xyz/api/wishlist/${param}`,data, options)
-                // setData(response.data.wishlist);
-                console.log(response);
-                // 成功メッセージを表示
+              // REST API
+              // const response = await axios.put(`https://wish1ist.xyz/api/wishlist/${param}`,data, options)
+              // // setData(response.data.wishlist);
+              // console.log(response);
+              // // 成功メッセージを表示
+              // setOpen(true);
+              // navigate(`/list/`);
+              // window.location.reload();
+
+              // GraphQL
+              const response = await axios({
+                url: GraphQL.ENDPOINT,
+                method: 'post',
+                headers: GraphQL.headers,
+                timeout: GraphQL.REQUEST_TIMEOUT_MS,
+                data: GraphQL.queryUpdateWish(param, data)
+              })
+              .then((res) => {
+                console.log(res);
                 setOpen(true);
                 navigate(`/list/`);
                 window.location.reload();
+              }).catch(error => {
+                console.log(error);
+              });
             };
             putData();
         }
@@ -60,9 +79,26 @@ export const Edit = () => {
         try {
             if (param != null) {
                 const fetchData = async () => {
-                    const response = await axios.get(`https://wish1ist.xyz/api/wishlist/${param}`, options)
-                    setData(response.data.wishlist);
+                  // REST API
+                  // const response = await axios.get(`https://wish1ist.xyz/api/wishlist/${param}`, options)
+                  // setData(response.data.wishlist);
+                  // setIsLoadComplete(true);
+
+                  // GraphQL
+                  const response = await axios({
+                    url: GraphQL.ENDPOINT,
+                    method: 'post',
+                    headers: GraphQL.headers,
+                    timeout: GraphQL.REQUEST_TIMEOUT_MS,
+                    data: GraphQL.queryGetWish(param)
+                  })
+                  .then((res) => {
+                    console.log(res);
+                    setData(res.data.data.getWish);
                     setIsLoadComplete(true);
+                  }).catch(error => {
+                    console.log(error);
+                  });
                 };
                 fetchData();
             }
