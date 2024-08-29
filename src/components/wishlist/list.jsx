@@ -5,23 +5,15 @@ import { BrowserRouter as Router, Route, Link, BrowserRouter, Routes, useNavigat
 import { Detail } from "./detail";
 import RouteDetail from "../../Routing";
 import AppRouter from "../../Routing";
+import { GraphQL } from "./graphQL";
 
 axios.defaults.withCredentials = false; // global に設定してしまう場合
-
-const ENDPOINT = import.meta.env.VITE_WISHLIST_GRAPHQL_ENDPOINT;
-const API_KEY = import.meta.env.VITE_WISHLIST_GRAPHQL_API_KEY;
-const REQUEST_TIMEOUT_MS = 5000;
 
 const options = {
   headers: {
     "Access-Control-Allow-Origin": "*",
   },
 };
-
-const headers = {
-  "content-type": "application/json",
-  "x-api-key": API_KEY
-}
 
 export function List() {
   const [data, setData] = useState([]);
@@ -53,30 +45,13 @@ export function List() {
   };
 
   const fetchData = async () => {
-    // test
-    console.log("endpoint, key "+ENDPOINT+", "+API_KEY)
-
-    // GraphQL API
-    const graphqlQuery = {
-      "operationName": "getWishes",
-      "query": `query getWishes {
-       listWishes {
-        items {
-          id 
-          content 
-          title
-          }
-        }
-       }`,
-      "variables": {}
-    };
    
     await axios({
-      url: ENDPOINT,
+      url: GraphQL.ENDPOINT,
       method: 'post',
-      headers: headers,
-      timeout: REQUEST_TIMEOUT_MS,
-      data: graphqlQuery
+      headers: GraphQL.headers,
+      timeout: GraphQL.REQUEST_TIMEOUT_MS,
+      data: GraphQL.queryListWishes
     })
     .then((res) => {
         console.log(res);
