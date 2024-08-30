@@ -20,11 +20,22 @@ export class GraphQL {
         id 
         content 
         title
+        created_at
+        updated_at
         }
       }
      }`,
     "variables": {}
   };
+
+  // クライアント側でソート（更新日時、降順）
+  static sortWishesByUpdatedAt(wishes, order = 'DESC') {
+    return wishes.sort((a, b) => {
+      const dateA = new Date(a.updated_at);
+      const dateB = new Date(b.updated_at);
+      return order === 'DESC' ? dateB - dateA : dateA - dateB;
+    });
+  }
 
   // getWish IDを指定して取得
   static queryGetWish(id) {
@@ -35,6 +46,8 @@ export class GraphQL {
           id
           content
           title
+          created_at
+          updated_at
         }
       }`,
       "variables": { id }
@@ -49,6 +62,8 @@ export class GraphQL {
         createWish(input: $createwishinput) {
         content
         title
+        created_at
+        updated_at
       }
     }`,
       "variables": { 
@@ -86,6 +101,8 @@ export class GraphQL {
           id
           content
           title
+          created_at
+          updated_at
         }
       }`,
       "variables": { 

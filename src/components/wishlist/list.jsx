@@ -73,7 +73,9 @@ export function List() {
     })
     .then((res) => {
         console.log(res);
-        setData(res.data.data.listWishes.items);
+        // ソートしてからデータをセット 
+        const sortedWishes = GraphQL.sortWishesByUpdatedAt(res.data.data.listWishes.items);
+        setData(sortedWishes);
     }).catch(error => {
         console.log(error);
     });
