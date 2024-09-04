@@ -9,6 +9,7 @@ axios.defaults.withCredentials = false; // global に設定してしまう場合
 export function Form() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const [isDataInvalid, setIsDataInvalid] = useState(true);
 
   const onChange = () => {
     let title = document.forms.postForm.title.value;
@@ -18,6 +19,8 @@ export function Form() {
       title: title,
       content: content,
     });
+    let isInvalid = (title == "") || (content == "");
+    setIsDataInvalid(isInvalid);  
 }
 
 const onClick = async()=>{
@@ -73,7 +76,7 @@ const onClick = async()=>{
           />
         </Box>
         <br />
-        <Button variant="contained" onClick={onClick}>投稿</Button>
+        <Button variant="contained" onClick={onClick} disabled={isDataInvalid}>投稿</Button>
       </form>
     </div>
   );

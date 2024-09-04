@@ -19,6 +19,7 @@ export const Edit = () => {
     const [isLoadCompleted, setIsLoadComplete] = useState(false);
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
+    const [isDataInvalid, setIsDataInvalid] = useState(false);
 
     const onClick = ()=>{
       try {
@@ -65,6 +66,8 @@ export const Edit = () => {
         title: title,
         content: content,
       });
+      let isInvalid = (title == "") || (content == "");
+      setIsDataInvalid(isInvalid);
     }
 
     const handleClose = (event, reason) => {
@@ -109,7 +112,7 @@ export const Edit = () => {
 
     return (
       <div>
-        <h1>Edit {param}</h1>
+        <h1>編集</h1>
         <Snackbar
         open={open}
         autoHideDuration={5000}
@@ -143,7 +146,7 @@ export const Edit = () => {
           />
         </Box>
         <br />
-        <Button variant="contained" onClick={onClick} disabled={!isLoadCompleted}>更新</Button>
+        <Button variant="contained" onClick={onClick} disabled={!isLoadCompleted || isDataInvalid}>更新</Button>
         </form>
       </div>
     );
