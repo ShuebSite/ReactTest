@@ -40,6 +40,7 @@ export const Email = () => {
 
             if (response.status == 200) {
                 setEmail('');
+                setIsDataInvalid(true);
                 setOpenSuccessSnackbar(true);
             }
         } catch (error) {
