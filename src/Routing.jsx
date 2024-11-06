@@ -8,6 +8,7 @@ import { Form } from "./components/wishlist/form";
 import { Game } from "./components/wishlist/game";
 import { Detail } from "./components/wishlist/detail";
 import { Edit } from "./components/wishlist/edit";
+import { Email } from "./components/wishlist/email";
 
 function AppRouter() {
   return (
@@ -21,6 +22,7 @@ function AppRouter() {
           <Route path="/game/" element={Game()} />
           <Route path="/detail/:id" element={Detail()} />
           <Route path="/edit/:id" element={Edit()} />
+          <Route path="/email/" element={Email()} />
         </Routes>
       </div>
   );

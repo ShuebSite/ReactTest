@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 
 // const pages = ['ホーム', 'リスト', '投稿', '三目並べゲーム'];
-const pages = ['リスト', '投稿', '三目並べゲーム'];
+const pages = ['リスト', '投稿', '三目並べゲーム', , 'メール送信'];
 // const pages = ['Products', 'Pricing', 'Blog'];
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
@@ -36,6 +36,9 @@ function Header() {
             break;
         case '三目並べゲーム':
             navigate(`/game/`)
+            break;
+        case 'メール送信':
+            navigate(`/email/`)
             break;
         default:
             break;
