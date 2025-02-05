@@ -4,6 +4,7 @@ import { Button, Modal, Paper, TextField, Typography, Box, AppBar, Toolbar, Icon
 // import { MenuIcon } from '@mui/icons-material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
+import { useAuth } from "react-oidc-context";
 
 // const pages = ['ホーム', 'リスト', '投稿', '三目並べゲーム'];
 const pages = ['リスト', '投稿', '三目並べゲーム', , 'メール送信'];
@@ -14,6 +15,7 @@ function Header() {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const auth = useAuth();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -47,6 +49,14 @@ function Header() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const signOutRedirect = () => {
+    const clientId = "3u1317g4pjb9g72ubasbdpnpa9";
+    const logoutUri = "http://localhost:3000"; // ログアウト後のリダイレクトURL
+    const cognitoDomain = "https://<your-cognito-domain>.auth.ap-southeast-2.amazoncognito.com";
+    
+    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
   };
 
   return (
@@ -166,6 +176,17 @@ function Header() {
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))} */}
+              {auth.isAuthenticated && (
+                <div className="flex items-center gap-4">
+                  <span>{auth.user?.profile.email}</span>
+                  <button
+                    onClick={signOutRedirect}
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+                  >
+                    ログアウト
+                  </button>
+                </div>
+              )}
             </Menu>
           </Box>
         </Toolbar>
