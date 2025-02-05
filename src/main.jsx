@@ -7,7 +7,7 @@ import { AuthProvider } from "react-oidc-context";
 const cognitoAuthConfig = {
   authority: "https://cognito-idp.ap-southeast-2.amazonaws.com/ap-southeast-2_GJNA9YPP7",
   client_id: "3u1317g4pjb9g72ubasbdpnpa9",
-  redirect_uri: "https://b0ed040e.reacttest-3yc.pages.dev", // あなたのアプリケーションのURL
+  redirect_uri: "https://wish1ist.xyz", // あなたのアプリケーションのURL
   response_type: "code",
   scope: "email openid profile", // 必要なスコープを指定
 };

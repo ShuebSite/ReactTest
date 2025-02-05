@@ -18,7 +18,7 @@ function App() {
 
   const signOutRedirect = () => {
     const clientId = "3u1317g4pjb9g72ubasbdpnpa9";
-    const logoutUri = "https://b0ed040e.reacttest-3yc.pages.dev";
+    const logoutUri = "https://wish1ist.xyz";
     const cognitoDomain = "https://wishlist.auth.ap-southeast-2.amazoncognito.com";
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
   };
