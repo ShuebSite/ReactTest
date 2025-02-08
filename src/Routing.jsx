@@ -10,7 +10,7 @@ import { Game } from "./components/wishlist/game";
 import { Detail } from "./components/wishlist/detail";
 import { Edit } from "./components/wishlist/edit";
 import { Email } from "./components/wishlist/email";
-import Login from './components/login';
+import Login from './components/loginItem';
 import Loading from './components/loading';
 import { AuthError } from './components/auth';
 
