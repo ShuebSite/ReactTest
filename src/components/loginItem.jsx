@@ -5,9 +5,10 @@ function Login() {
   const auth = useAuth();
   // ログイン試行フラグ：無限ループを防ぐために使用
   const [hasTriedSignin, setHasTriedSignin] = React.useState(false);
-
-  // 意図的なログアウトフラグをチェック
-  const isManuallyLoggedOut = localStorage.getItem('manuallyLoggedOut') === 'true';
+  // hasClickedLoginの初期値をfalseに設定（localStorage に値がない場合は false）
+  const hasClickedLogin = localStorage.getItem('hasClickedLogin') !== null 
+    ? localStorage.getItem('hasClickedLogin') === 'true' 
+    : false;
 
   // automatically sign-in
   useEffect(() => {
@@ -17,16 +18,16 @@ function Login() {
         !auth.activeNavigator &&      // 3. 認証プロセスが進行中でない
         !auth.isLoading &&            // 4. ローディング中でない
         !hasTriedSignin &&            // 5. まだサインインを試していない
-        !isManuallyLoggedOut          // 6. 意図的なログアウトでない
+        hasClickedLogin               // 6. ログインが許可されている
     ) {
         auth.signinRedirect(); // 認証プロバイダーへリダイレクト
         setHasTriedSignin(true); // ログイン試行フラグを立てる（無限ループ防止）
     }
-    }, [auth, hasTriedSignin, isManuallyLoggedOut]);
+  }, [auth, hasTriedSignin, hasClickedLogin]);
 
-  // ログインボタンクリック時にログアウトフラグを削除
+  // ログインボタンクリック時の処理
   const handleLogin = () => {
-    localStorage.removeItem('manuallyLoggedOut');
+    localStorage.setItem('hasClickedLogin', 'true');  // ログイン許可状態に設定
     auth.signinRedirect();
   };
 

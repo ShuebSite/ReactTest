@@ -40,7 +40,7 @@ function Header() {
             navigate(`/email/`)
             break;
         case 'ログアウト':
-            localStorage.setItem('manuallyLoggedOut', 'true');
+            localStorage.setItem('hasClickedLogin', 'false');  // ログイン不許可状態に設定
             auth.removeUser();
             navigate('/');
             break;
